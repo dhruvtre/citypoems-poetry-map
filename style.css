@@ -9,6 +9,10 @@
   box-sizing: border-box;
 }
 
+:root {
+  --navbar-height: 56px;
+}
+
 body {
   font-family: 'Georgia', serif;
   background: #fafafa;
@@ -30,7 +34,7 @@ body {
   left: 0;
   right: 0;
   z-index: 1000;
-  height: 56px;
+  height: var(--navbar-height);
 }
 
 .nav-brand {
@@ -245,6 +249,10 @@ body {
    ============================================ */
 
 @media (max-width: 1000px) {
+  :root {
+    --navbar-height: 3rem;
+  }
+
   /* Flex layout for mobile */
   body {
     display: flex;
@@ -256,6 +264,7 @@ body {
     position: relative;
     padding: 0.5rem 1rem;
     flex-shrink: 0;
+    height: var(--navbar-height);
   }
 
   .nav-brand {
@@ -309,11 +318,13 @@ body {
   }
 
   .poem-panel {
-    top: 8vh;
+    top: var(--navbar-height);
+    left: 0;
     right: 0;
+    bottom: 0;
     width: 100%;
     max-width: 100%;
-    height: 92vh;
+    height: auto;
     max-height: none;
     border-radius: 0;
     border: none;

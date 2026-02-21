@@ -7,7 +7,7 @@ const cityCoords = {
   'Bangalore, IN': { lat: 12.9716, lng: 77.5946, zoom: 13 },
   'Kalga, IN': { lat: 31.995019, lng: 77.450985, zoom: 15 },
   'Delhi, IN': { lat: 28.6139, lng: 77.2090, zoom: 12 },
-  'Gurgaon, IN': { lat: 28.4595, lng: 77.0266, zoom: 14 },
+  'Gurgaon, IN': { lat: 28.461992, lng: 77.100416, zoom: 14 },
   'all': { lat: 22.5, lng: 78.5, zoom: 5 }  // Centered on India
 };
 
@@ -150,6 +150,21 @@ function showPoem(poem) {
 
 // Close panel when X is clicked
 closeBtn.addEventListener('click', () => {
+  panel.classList.add('hidden');
+});
+
+// Close panel when clicking outside of it
+document.addEventListener('click', (e) => {
+  // If panel is hidden, do nothing
+  if (panel.classList.contains('hidden')) return;
+
+  // If click is inside the panel, do nothing
+  if (panel.contains(e.target)) return;
+
+  // If click is on a marker, do nothing (marker click opens new poem)
+  if (e.target.closest('.leaflet-marker-icon') || e.target.closest('.leaflet-interactive')) return;
+
+  // Otherwise, close the panel
   panel.classList.add('hidden');
 });
 
