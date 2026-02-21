@@ -290,20 +290,18 @@ body {
     left: auto;
     bottom: auto;
     transform: none;
-    margin: 0 auto 3.5rem auto;
+    margin: 0 auto;
     width: 90%;
     flex-grow: 1;
     height: auto;
   }
 
-  /* Credit centered at bottom on mobile */
+  /* Credit centered at bottom on mobile - part of flex layout */
   .site-credit {
-    position: fixed;
-    bottom: 0.75rem;
-    left: 0;
-    right: 0;
+    position: relative;
     text-align: center;
-    padding: 0;
+    padding: 0.75rem 0;
+    flex-shrink: 0;
   }
 
   .poem-panel {
