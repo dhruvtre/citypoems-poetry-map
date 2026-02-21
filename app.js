@@ -4,10 +4,10 @@
 
 // City coordinates for sidebar navigation
 const cityCoords = {
-  'Bangalore, IN': { lat: 12.9716, lng: 77.5946, zoom: 12 },
-  'Kalga, IN': { lat: 31.995019, lng: 77.450985, zoom: 14 },
-  'Delhi, IN': { lat: 28.6139, lng: 77.2090, zoom: 11 },
-  'Gurgaon, IN': { lat: 28.4595, lng: 77.0266, zoom: 13 },
+  'Bangalore, IN': { lat: 12.9716, lng: 77.5946, zoom: 13 },
+  'Kalga, IN': { lat: 31.995019, lng: 77.450985, zoom: 15 },
+  'Delhi, IN': { lat: 28.6139, lng: 77.2090, zoom: 12 },
+  'Gurgaon, IN': { lat: 28.4595, lng: 77.0266, zoom: 14 },
   'all': { lat: 22.5, lng: 78.5, zoom: 5 }  // Centered on India
 };
 
@@ -99,15 +99,13 @@ function addPinsToMap(poems) {
     markers.push(marker);
   });
 
-  // On mobile, show/hide labels based on zoom
-  if (isMobile) {
-    updateMobileLabels();
-    map.on('zoomend', updateMobileLabels);
-  }
+  // Show/hide labels based on zoom (both mobile and desktop)
+  updateLabels();
+  map.on('zoomend', updateLabels);
 }
 
-// Show permanent labels on mobile only when zoomed in enough
-function updateMobileLabels() {
+// Show permanent labels when zoomed in enough (zoom 13+)
+function updateLabels() {
   const zoom = map.getZoom();
   const showLabels = zoom >= 13;  // Show labels at zoom 13+
 
