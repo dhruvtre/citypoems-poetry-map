@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CITYPOEMS</title>
+
+  <!-- Google Fonts - Bebas Neue for headings, Lora for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400&family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS - the map library's styles -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Our custom styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-mode">
+
+  <!-- Navigation bar -->
+  <nav class="navbar">
+    <div class="nav-brand">CITYPOEMS</div>
+
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+      <span class="icon-sun">&#9788;</span>
+      <span class="icon-moon">&#9790;</span>
+    </button>
+  </nav>
+
+  <!-- Left sidebar with city list -->
+  <aside class="sidebar">
+    <ul id="city-list" class="city-list">
+      <!-- Cities will be added by JavaScript -->
+    </ul>
+  </aside>
+
+  <!-- The map container - Leaflet will draw inside this -->
+  <div id="map"></div>
+
+  <!-- Poem panel - hidden by default, slides in when pin is clicked -->
+  <div id="poem-panel" class="poem-panel hidden">
+    <button id="close-panel" class="close-btn">&times;</button>
+    <h2 id="poem-title"></h2>
+    <span id="poem-author" class="poem-author"></span>
+    <p id="poem-text"></p>
+    <span id="poem-date" class="poem-date"></span>
+  </div>
+
+  <!-- Leaflet JavaScript - the map library -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Our custom JavaScript -->
+  <script src="app.js"></script>
+
+</body>
+</html>
