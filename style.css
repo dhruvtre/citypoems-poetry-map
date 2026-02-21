@@ -299,9 +299,13 @@ body {
   /* Credit centered at bottom on mobile - part of flex layout */
   .site-credit {
     position: relative;
+    bottom: auto;
+    right: auto;
+    left: auto;
     text-align: center;
-    padding: 0.75rem 0;
+    padding: 1.25rem 0 0.75rem 0;
     flex-shrink: 0;
+    z-index: auto;
   }
 
   .poem-panel {
@@ -313,6 +317,7 @@ body {
     max-height: none;
     border-radius: 0;
     border: none;
+    transition: transform 0.4s ease;
   }
 
   .poem-panel.hidden {
