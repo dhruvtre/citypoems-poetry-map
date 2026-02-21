@@ -103,7 +103,10 @@ body {
   cursor: pointer;
 }
 
-.city-list a:hover,
+.city-list a:hover {
+  color: #ff2d95;
+}
+
 .city-list a.active {
   color: #000;
 }
@@ -214,6 +217,30 @@ body {
 }
 
 /* ============================================
+   SITE CREDIT
+   ============================================ */
+
+.site-credit {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  font-family: 'Crimson Text', serif;
+  font-size: 0.9rem;
+  color: #888;
+  z-index: 50;
+}
+
+.site-credit a {
+  color: #888;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-credit a:hover {
+  color: #ff2d95;
+}
+
+/* ============================================
    RESPONSIVE - Mobile adjustments
    ============================================ */
 
@@ -263,10 +290,20 @@ body {
     left: auto;
     bottom: auto;
     transform: none;
-    margin: 0 auto 5vh auto;
+    margin: 0 auto 3.5rem auto;
     width: 90%;
     flex-grow: 1;
     height: auto;
+  }
+
+  /* Credit centered at bottom on mobile */
+  .site-credit {
+    position: fixed;
+    bottom: 0.75rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 0;
   }
 
   .poem-panel {
@@ -310,7 +347,10 @@ body.dark-mode .city-list a {
   color: #fff;
 }
 
-body.dark-mode .city-list a:hover,
+body.dark-mode .city-list a:hover {
+  color: #ff2d95;
+}
+
 body.dark-mode .city-list a.active {
   color: #e0e0e0;
 }
@@ -356,6 +396,15 @@ body.dark-mode .close-btn:hover {
 
 body.dark-mode .poem-date {
   color: #888;
+}
+
+body.dark-mode .site-credit,
+body.dark-mode .site-credit a {
+  color: #666;
+}
+
+body.dark-mode .site-credit a:hover {
+  color: #ff2d95;
 }
 
 /* ============================================
