@@ -73,30 +73,33 @@ function addPinsToMap(poems) {
     // Get color for this city (or use default)
     const color = cityColors[poem.city] || cityColors['default'];
 
-    // Create a custom colored marker
-    const marker = L.circleMarker([poem.lat, poem.lng], {
-      radius: 8,
-      fillColor: color,
-      color: '#fff',
-      weight: 2,
-      opacity: 1,
-      fillOpacity: 0.8
+    // Determine all points to pin for this poem
+    const pinPoints = (poem.route && poem.route.length > 1)
+      ? poem.route
+      : [{ lat: poem.lat, lng: poem.lng, landmark: poem.landmark }];
+
+    pinPoints.forEach(point => {
+      const marker = L.circleMarker([point.lat, point.lng], {
+        radius: 8,
+        fillColor: color,
+        color: '#fff',
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.8
+      });
+
+      marker.bindTooltip(point.landmark, {
+        direction: 'top',
+        offset: [0, -8],
+        className: 'marker-tooltip',
+        permanent: true
+      });
+
+      marker.on('click', () => showPoem(poem));
+
+      marker.addTo(map);
+      markers.push(marker);
     });
-
-    // Add tooltip - permanent on mobile (controlled by zoom), hover on desktop
-    marker.bindTooltip(poem.landmark, {
-      direction: 'top',
-      offset: [0, -8],
-      className: 'marker-tooltip',
-      permanent: false  // We'll control this manually on mobile
-    });
-
-    // When pin is clicked, show the poem
-    marker.on('click', () => showPoem(poem));
-
-    // Add marker to the map
-    marker.addTo(map);
-    markers.push(marker);
   });
 
   // Show/hide labels based on zoom (both mobile and desktop)
@@ -125,6 +128,9 @@ function updateLabels() {
 const panel = document.getElementById('poem-panel');
 const closeBtn = document.getElementById('close-panel');
 
+// Store active route layer for poems with routes
+let activePolyline = null;
+
 // Format coordinates as "12.9347°N, 77.6303°E"
 function formatCoords(lat, lng) {
   const latDir = lat >= 0 ? 'N' : 'S';
@@ -144,6 +150,25 @@ function showPoem(poem) {
   document.getElementById('poem-text').textContent = poem.poem_text;
   document.getElementById('poem-date').textContent = poem.date_written;
 
+  // Clear any existing polyline
+  if (activePolyline) {
+    map.removeLayer(activePolyline);
+    activePolyline = null;
+  }
+
+  // Draw route line if this poem has one
+  if (poem.route && poem.route.length > 1) {
+    const color = cityColors[poem.city] || cityColors['default'];
+    const points = poem.route.map(p => [p.lat, p.lng]);
+
+    activePolyline = L.polyline(points, {
+      color: color,
+      weight: 2,
+      opacity: 0.7,
+      dashArray: '6, 8'
+    }).addTo(map);
+  }
+
   // Remove 'hidden' class to show panel
   panel.classList.remove('hidden');
 }
@@ -151,6 +176,10 @@ function showPoem(poem) {
 // Close panel when X is clicked
 closeBtn.addEventListener('click', () => {
   panel.classList.add('hidden');
+  if (activePolyline) {
+    map.removeLayer(activePolyline);
+    activePolyline = null;
+  }
 });
 
 // Close panel when clicking outside of it
@@ -166,6 +195,10 @@ document.addEventListener('click', (e) => {
 
   // Otherwise, close the panel
   panel.classList.add('hidden');
+  if (activePolyline) {
+    map.removeLayer(activePolyline);
+    activePolyline = null;
+  }
 });
 
 // ============================================
