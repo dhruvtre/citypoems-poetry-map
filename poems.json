@@ -178,5 +178,59 @@
     "landmark": "Intermediate Ring Road",
     "author": "Dhruv Trehan",
     "date_written": "2026-02-01"
+  },
+  {
+    "title": "Chandni Chowk, Delhi",
+    "poem_text": "Swallow this summer street,\nthen wait for the monsoon.\nNeedles of rain\n\nmelt on the tongue. Will you go\nfarther? A memory of drought\nholds you: you remember\n\nthe taste of hungry words\nand you chew syllables of salt.\n\nCan you rinse away this city that lasts\nlike blood on the bitten tongue?",
+    "lat": 28.656159,
+    "lng": 77.230119,
+    "city": "Delhi, IN",
+    "landmark": "Chandni Chowk",
+    "author": "Agha Shahid Ali",
+    "date_written": "1982–83"
+  },
+  {
+    "title": "A Lost Memory of Delhi",
+    "poem_text": "I am not born\nit is 1948 and the bus turns\nonto a road without name\n\nThere on his bicycle\nmy father\nHe is younger than I\n\nAt Okhla where I get off\nI pass my parents\nstrolling by the Jamuna River\n\nMy mother is a recent bride\nher sari a blaze of brocade\nSilverdust parts her hair\n\nShe doesn't see me\nThe bells of her anklets are distant\nlike the sound of china from\n\nteashops being lit up with lanterns\nand the stars are coming out\nringing with tongues of glass\n\nThey go into the house\nalways faded in photographs\nin the family album\n\nbut lit up now\nwith the oil lamp\nI saw broken in the attic\n\nI want to tell them I am their son\nolder much older than they are\nI knock keep knocking\n\nbut for them the night is quiet\nthis the night of my being\nThey don't they won't\n\nhear me they won't hear\nmy knocking drowning out\nthe tongues of stars",
+    "lat": 28.5570,
+    "lng": 77.2920,
+    "city": "Delhi, IN",
+    "landmark": "Okhla, Jamuna River",
+    "author": "Agha Shahid Ali",
+    "date_written": "1984"
+  },
+  {
+    "title": "After Seeing Kozintsev's King Lear, in Delhi",
+    "poem_text": "Lear cries out \"You are men of stones\"\nas Cordelia hangs from a broken wall.\n\nI step out into Chandni Chowk, a street once\nstrewn with jasmine flowers\nfor the Empress and the royal women\nwho bought perfumes from Isfahan,\nfabrics from Dacca, essence from Kabul,\nglass bangles from Agra.\n\nBeggars now live here in tombs\nof unknown nobles and forgotten saints\nwhile hawkers sell combs and mirrors\noutside a Sikh temple. Across the street,\na theater is showing a Bombay spectacular.\n\nI think of Zafar, poet and Emperor,\nbeing led through this street\nby British soldiers, his feet in chains,\nto watch his sons hanged.\n\nIn exile he wrote:\n\"Unfortunate Zafar\nspent half his life in hope,\nthe other half waiting.\nHe begs for two yards of Delhi for burial.\"\n\nHe was exiled to Burma, buried in Rangoon.",
+    "lat": 28.6563254,
+    "lng": 77.2320742,
+    "city": "Delhi, IN",
+    "landmark": "Chandni Chowk",
+    "author": "Agha Shahid Ali",
+    "date_written": "1980"
+  },
+  {
+    "title": "The Fate of the Astrologer Sitting on the Pavement Outside the Delhi Railway Station",
+    "poem_text": "\"Pay, pay attention to the sky,\"\nhe shouts to passers-by.\n\nThe planets gather dust\nfrom passing trucks.",
+    "lat": 28.6609,
+    "lng": 77.2277,
+    "city": "Delhi, IN",
+    "landmark": "Old Delhi Railway Station",
+    "author": "Agha Shahid Ali",
+    "date_written": "1987"
+  },
+  {
+    "title": "I Dream It Is Afternoon When I Return to Delhi",
+    "poem_text": "At Purana Qila I am alone, waiting\nfor the bus to Daryaganj. I see it coming,\nbut my hands are empty.\n\"Jump on, jump on,\" someone shouts,\n\"I've saved this change for you\nfor years. Look!\"\nA hand opens, full of silver rupees.\n\"Jump on, jump on.\" The voice doesn't stop.\nThere's no one I know. A policeman,\nhandcuffs silver in his hands,\nasks for my ticket.\n\nI jump off the running bus,\nsweat pouring from my hair.\nI run past the Doll Museum, past\nheadlines on the Times of India\nbuilding, prisoners blinded in a bihar\njail, harijan villages burned by landlords.\nPanting, I stop in Daryaganj,\noutside Golcha Cinema.\n\nSunil is there, lighting\na cigarette, smiling. I say,\n\"It must be ten years, you haven't changed,\nit was your voice on the bus!\"\nHe says, \"The film is about to begin,\nI've bought an extra ticket for you,\"\nand we rush inside:\n\nAnarkali is being led away,\nher earrings lying on the marble floor.\nAny moment she'll be buried alive.\n\"But this is the end,\" I turn\ntoward Sunil. He is nowhere.\nThe usher taps my shoulder, says\nmy ticket is ten years old.\n\nOnce again my hands are empty.\nI am waiting, alone, at Purana Qila.\nBus after empty bus is not stopping.\nSuddenly, beggar women with children\nare everywhere, offering\nme money, weeping for me.",
+    "lat": 28.609655586093847,
+    "lng": 77.24399455270557,
+    "city": "Delhi, IN",
+    "landmark": "Purana Qila",
+    "author": "Agha Shahid Ali",
+    "date_written": "1986",
+    "route": [
+      { "lat": 28.609655586093847, "lng": 77.24399455270557, "landmark": "Purana Qila" },
+      { "lat": 28.64459225122127, "lng": 77.24023337509749, "landmark": "Golcha Cinema" }
+    ]
   }
 ]
