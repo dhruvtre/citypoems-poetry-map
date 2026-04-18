@@ -209,17 +209,42 @@ body {
   font-family: 'Crimson Text', serif;
   font-size: 1rem;
   line-height: 1.9;
-  white-space: pre-line;  /* Preserves line breaks from \n */
+  white-space: pre-wrap;  /* Preserves line breaks and indentation */
   margin-bottom: 1.5rem;
 }
 
 .poem-date {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 400;
-  display: block;
+  display: inline;
   font-size: 0.95rem;
   letter-spacing: 1px;
   color: #888;
+}
+
+.poem-source {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 400;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  color: #888;
+  text-decoration: none;
+}
+
+.poem-source-sep {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  color: #888;
+  margin: 0 0.3rem;
+}
+
+.poem-source:hover {
+  color: #333;
+  text-decoration: underline;
+}
+
+body.dark-mode .poem-source:hover {
+  color: #ccc;
 }
 
 /* ============================================

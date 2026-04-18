@@ -8,6 +8,7 @@ const cityCoords = {
   'Kalga, IN': { lat: 31.995019, lng: 77.450985, zoom: 15 },
   'Delhi, IN': { lat: 28.6139, lng: 77.2090, zoom: 12 },
   'Gurgaon, IN': { lat: 28.461992, lng: 77.100416, zoom: 14 },
+  'Mumbai, IN': { lat: 19.0760, lng: 72.8777, zoom: 11 },
   'all': { lat: 22.5, lng: 78.5, zoom: 5 }  // Centered on India
 };
 
@@ -17,6 +18,7 @@ const cityColors = {
   'Kalga, IN': '#2a9d8f',      // Teal
   'Delhi, IN': '#e9c46a',      // Yellow
   'Gurgaon, IN': '#457b9d',    // Blue
+  'Mumbai, IN': '#f4a261',     // Orange
   'default': '#457b9d'         // Blue fallback
 };
 
@@ -149,6 +151,20 @@ function showPoem(poem) {
 
   document.getElementById('poem-text').textContent = poem.poem_text;
   document.getElementById('poem-date').textContent = poem.date_written;
+
+  const sourceLink = document.getElementById('poem-source');
+  const sourceSep = document.getElementById('poem-source-sep');
+  if (poem.source_url) {
+    sourceLink.href = poem.source_url;
+    sourceLink.textContent = 'source';
+    sourceLink.style.display = '';
+    sourceSep.style.display = '';
+  } else {
+    sourceLink.removeAttribute('href');
+    sourceLink.textContent = '';
+    sourceLink.style.display = 'none';
+    sourceSep.style.display = 'none';
+  }
 
   // Clear any existing polyline
   if (activePolyline) {
