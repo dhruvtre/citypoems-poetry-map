@@ -147,17 +147,79 @@ function formatCoords(lat, lng) {
   return `${Math.abs(lat).toFixed(4)}°${latDir}, ${Math.abs(lng).toFixed(4)}°${lngDir}`;
 }
 
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'];
+
+// Format "2022-08-15" as "15 August 2022".
+// Years and ranges ("1984", "1982–83") are shown exactly as written.
+// Done by hand rather than with Date, which can shift the day in some time zones.
+function formatDate(dateText) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateText || '');
+  if (!match) return dateText || '';
+
+  const [, year, month, day] = match;
+  const monthName = MONTHS[Number(month) - 1];
+  if (!monthName || Number(day) < 1 || Number(day) > 31) return dateText;
+
+  return `${Number(day)} ${monthName} ${year}`;
+}
+
+// Build the poem as stanzas (<p>, split at blank lines) of lines (one block each).
+// CSS gives every line a hanging indent, so a line that wraps is indented and the
+// poet's own breaks stay clear. Using <p> for stanzas also keeps the blank lines
+// when someone copies the poem.
+function renderPoemText(container, text) {
+  container.replaceChildren();
+  let stanza = null;
+
+  text.split(/\r?\n/).forEach(line => {
+    // A blank line ends the current stanza
+    if (!line.trim()) {
+      stanza = null;
+      return;
+    }
+
+    if (!stanza) {
+      stanza = document.createElement('p');
+      stanza.className = 'poem-stanza';
+      container.appendChild(stanza);
+    }
+
+    const lineEl = document.createElement('span');
+    lineEl.className = 'poem-line';
+
+    // Keep leading spaces in the text (so copying keeps them), and tell CSS how many
+    // there are, so the wrapped part of an indented line hangs past its indented start
+    const leadingSpaces = line.match(/^ */)[0].length;
+    if (leadingSpaces) lineEl.style.setProperty('--indent', leadingSpaces);
+    lineEl.textContent = line;
+
+    stanza.appendChild(lineEl);
+  });
+}
+
 // Show poem in the side panel
 function showPoem(poem) {
   document.getElementById('poem-title').textContent = poem.title;
 
-  // Author with coordinates
-  const coords = formatCoords(poem.lat, poem.lng);
-  const authorText = poem.author ? `${poem.author} · ${coords}` : coords;
-  document.getElementById('poem-author').textContent = authorText;
+  // Author on one line (hidden if there isn't one)
+  const authorEl = document.getElementById('poem-author');
+  authorEl.textContent = poem.author || '';
+  authorEl.style.display = poem.author ? '' : 'none';
 
-  document.getElementById('poem-text').textContent = poem.poem_text;
-  document.getElementById('poem-date').textContent = poem.date_written;
+  // Place name with coordinates on the next line, e.g. "ST Bed Layout · 12.9367°N, 77.6323°E".
+  // Route poems show their journey instead, e.g. "Purana Qila → Golcha Cinema".
+  const placeEl = document.getElementById('poem-place');
+  if (placeEl) {
+    const coords = formatCoords(poem.lat, poem.lng);
+    const placeName = (poem.route && poem.route.length > 1)
+      ? poem.route.map(point => point.landmark).join(' → ')
+      : poem.landmark;
+    placeEl.textContent = placeName ? `${placeName} · ${coords}` : coords;
+  }
+
+  renderPoemText(document.getElementById('poem-text'), poem.poem_text);
+  document.getElementById('poem-date').textContent = formatDate(poem.date_written);
 
   const sourceLink = document.getElementById('poem-source');
   const sourceSep = document.getElementById('poem-source-sep');

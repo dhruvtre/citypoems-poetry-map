@@ -196,22 +196,52 @@ body {
   line-height: 1.3;
 }
 
-.poem-author {
+/* Place + coordinates line, then author line */
+.poem-meta {
+  margin-bottom: 1.5rem;
+}
+
+.poem-author,
+.poem-place {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 400;
   display: block;
   font-size: 0.95rem;
   letter-spacing: 1px;
   color: #888;
-  margin-bottom: 1.5rem;
+}
+
+.poem-author {
+  margin-top: 0.4rem;
 }
 
 #poem-text {
   font-family: 'Crimson Text', serif;
   font-size: 1rem;
   line-height: 1.9;
-  white-space: pre-wrap;  /* Preserves line breaks and indentation */
+  white-space: pre-wrap;  /* Preserves spacing within lines */
   margin-bottom: 1.5rem;
+}
+
+/* Gap between stanzas = exactly one blank line (1.9 = the line-height above) */
+.poem-stanza {
+  margin-bottom: 1.9em;
+}
+
+.poem-stanza:last-child {
+  margin-bottom: 0;
+}
+
+/* One block per poem line. A line that wraps hangs 1.5em in, so it can't be
+   mistaken for the poet's own line break. --indent is the number of leading
+   spaces the line starts with (0.224em is one space in Crimson Text): the first
+   row starts at the edge and its spaces indent it as before, while the wrapped
+   part hangs 1.5em past that indented start. */
+.poem-line {
+  --hang: calc(var(--indent, 0) * 0.224em + 1.5em);
+  display: block;
+  padding-left: var(--hang);
+  text-indent: calc(-1 * var(--hang));
 }
 
 .poem-date {
