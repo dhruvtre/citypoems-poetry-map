@@ -192,6 +192,10 @@ function showPoem(poem) {
     }).addTo(map);
   }
 
+  // The same panel is reused for every poem, so it keeps its scroll position.
+  // Jump back to the top so each new poem starts at its title.
+  panel.scrollTop = 0;
+
   // Remove 'hidden' class to show panel
   panel.classList.remove('hidden');
 }

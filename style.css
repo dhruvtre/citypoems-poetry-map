@@ -141,7 +141,8 @@ body {
 
 .poem-panel {
   position: fixed;
-  top: calc(50% + 28px - 37.5vh - 4rem);    /* Above map top edge */
+  /* Above map top edge, but never higher than just below the navbar (matters in short windows) */
+  top: max(calc(var(--navbar-height) + 0.5rem), calc(50% + 28px - 37.5vh - 4rem));
   right: 6%;                                  /* Near screen edge, overlaps map */
   width: 400px;
   height: 50vh;
