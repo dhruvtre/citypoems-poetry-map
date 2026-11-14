@@ -345,8 +345,11 @@ body.dark-mode .poem-source:hover {
     flex-shrink: 0;
   }
 
+  /* inline-block + nowrap: the menu wraps between cities, never inside one
+     (so "Kalga, IN (3)" can't break into "Kalga, IN" / "(3)") */
   .city-list li {
-    display: inline;
+    display: inline-block;
+    white-space: nowrap;
     margin-right: 1rem;
     margin-bottom: 0;
   }
