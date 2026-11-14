@@ -13,6 +13,12 @@
   <meta property="og:url" content="https://citypoems.in">
   <meta property="og:title" content="CITYPOEMS">
   <meta property="og:description" content="An interactive way to explore city poems written across the world. Click a pin, read a poem.">
+  <!-- Preview image: absolute www URL, since citypoems.in redirects there and some apps don't follow redirects for images -->
+  <meta property="og:image" content="https://www.citypoems.in/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The CITYPOEMS map of Bangalore in dark mode, with red pins marking where poems were written.">
+  <meta name="twitter:card" content="summary_large_image">
 
   <!-- Google Fonts - Bebas Neue for headings, Lora for body -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +32,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="dark-mode">
+
+  <!-- Apply a saved light-mode choice before anything is drawn, so returning visitors don't see a dark flash -->
+  <script>
+    try {
+      if (localStorage.getItem('theme') === 'light') document.body.classList.remove('dark-mode');
+    } catch (e) {}
+  </script>
 
   <!-- Navigation bar -->
   <nav class="navbar">
@@ -58,8 +71,10 @@
     <a id="poem-source" class="poem-source" target="_blank" rel="noopener"></a>
   </div>
 
-  <!-- Footer spacer for mobile layout -->
-  <footer class="site-credit"></footer>
+  <!-- Site credit - bottom right on desktop, below the map on mobile -->
+  <footer class="site-credit">
+    <a href="https://dhruvtrehan.xyz" target="_blank" rel="noopener">dhruvtrehan.xyz</a>
+  </footer>
 
   <!-- Leaflet JavaScript - the map library -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

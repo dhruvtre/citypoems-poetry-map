@@ -46,9 +46,10 @@ const darkTiles = L.tileLayer(`https://basemaps.cartocdn.com/rastertiles/dark_al
   maxZoom: 19
 });
 
-// Start with dark mode
-darkTiles.addTo(map);
-let isDarkMode = true;
+// Start in whichever theme the page loaded with: dark by default,
+// or light if the visitor chose it last time (see the script at the top of <body>)
+let isDarkMode = document.body.classList.contains('dark-mode');
+(isDarkMode ? darkTiles : lightTiles).addTo(map);
 
 // ============================================
 // 2. LOAD POEMS AND CREATE PINS
@@ -295,4 +296,9 @@ themeToggle.addEventListener('click', () => {
     map.removeLayer(darkTiles);
     lightTiles.addTo(map);
   }
+
+  // Remember the choice for the next visit (fails silently in private browsing)
+  try {
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  } catch (e) {}
 });

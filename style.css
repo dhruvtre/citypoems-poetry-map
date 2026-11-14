@@ -255,7 +255,8 @@ body.dark-mode .poem-source:hover {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
-  font-family: 'Crimson Text', serif;
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 1px;
   font-size: 0.9rem;
   color: #888;
   z-index: 50;
