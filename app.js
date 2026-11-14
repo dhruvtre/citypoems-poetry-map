@@ -29,14 +29,20 @@ const cityColors = {
 // Create the map, centered on Bangalore
 const map = L.map('map').setView([12.9716, 77.5946], 12);
 
+// CARTO basemaps API key (required since Sep 2026).
+// This key is public by design - restrict it to citypoems.in in the CARTO dashboard.
+const CARTO_API_KEY = 'cb1_4z1o_1_243bcf166f49d7633ac96f14';
+
+const tileAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+
 // Define both light and dark tile layers
-const lightTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+const lightTiles = L.tileLayer(`https://basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png?key=${CARTO_API_KEY}`, {
+  attribution: tileAttribution,
   maxZoom: 19
 });
 
-const darkTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+const darkTiles = L.tileLayer(`https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png?key=${CARTO_API_KEY}`, {
+  attribution: tileAttribution,
   maxZoom: 19
 });
 
