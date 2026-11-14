@@ -6,9 +6,9 @@
 const cityCoords = {
   'Bangalore, IN': { lat: 12.9716, lng: 77.5946, zoom: 13 },
   'Kalga, IN': { lat: 31.995019, lng: 77.450985, zoom: 15 },
-  'Delhi, IN': { lat: 28.6139, lng: 77.2090, zoom: 12 },
-  'Gurgaon, IN': { lat: 28.461992, lng: 77.100416, zoom: 14 },
+  'Delhi-NCR, IN': { lat: 28.5714, lng: 77.1962, zoom: 11 },  // Delhi + Gurgaon: zoom 11 fits all pins
   'Mumbai, IN': { lat: 19.0760, lng: 72.8777, zoom: 11 },
+  'Chennai, IN': { lat: 13.0827, lng: 80.2707, zoom: 12 },
   'all': { lat: 22.5, lng: 78.5, zoom: 5 }  // Centered on India
 };
 
@@ -16,9 +16,9 @@ const cityCoords = {
 const cityColors = {
   'Bangalore, IN': '#e63946',  // Red
   'Kalga, IN': '#2a9d8f',      // Teal
-  'Delhi, IN': '#e9c46a',      // Yellow
-  'Gurgaon, IN': '#457b9d',    // Blue
+  'Delhi-NCR, IN': '#e9c46a',  // Yellow (Delhi + Gurgaon)
   'Mumbai, IN': '#f4a261',     // Orange
+  'Chennai, IN': '#9b5de5',    // Purple
   'default': '#457b9d'         // Blue fallback
 };
 
@@ -65,6 +65,7 @@ fetch('poems.json')
     poems = data;
     addPinsToMap(poems);
     populateCitySidebar(poems);
+    updateActiveCity();  // highlight the starting city (Bangalore)
   })
   .catch(error => {
     console.error('Error loading poems:', error);
@@ -192,9 +193,25 @@ function renderPoemText(container, text) {
     // there are, so the wrapped part of an indented line hangs past its indented start
     const leadingSpaces = line.match(/^ */)[0].length;
     if (leadingSpaces) lineEl.style.setProperty('--indent', leadingSpaces);
-    lineEl.textContent = line;
+    appendWithItalics(lineEl, line);
 
     stanza.appendChild(lineEl);
+  });
+}
+
+// Poem text can mark italics with asterisks, e.g. "flip through the *Mid-Day*".
+// Built from text nodes and <em> elements (never innerHTML), so poem text can't
+// inject HTML. A lone asterisk with no closing pair is shown as-is.
+function appendWithItalics(parent, text) {
+  text.split(/\*([^*\n]+)\*/).forEach((part, i) => {
+    if (!part) return;
+    if (i % 2 === 1) {
+      const em = document.createElement('em');
+      em.textContent = part;
+      parent.appendChild(em);
+    } else {
+      parent.appendChild(document.createTextNode(part));
+    }
   });
 }
 
@@ -337,10 +354,49 @@ cityList.addEventListener('click', (e) => {
     });
   }
 
-  // Update active state
-  cityList.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-  e.target.classList.add('active');
+  // Highlight the clicked city straight away; updateActiveCity() confirms it
+  // once the map arrives
+  setActiveCity(city);
 });
+
+// Highlight one sidebar link (or none, if city is null)
+function setActiveCity(city) {
+  cityList.querySelectorAll('a').forEach(a => {
+    a.classList.toggle('active', a.dataset.city === city);
+  });
+}
+
+// Work out which city the map is showing and highlight it in the sidebar:
+// - zoomed out to India level -> "all"
+// - otherwise the city with the most pins on screen (ties: closest to centre)
+// - no pins on screen -> nothing highlighted
+function updateActiveCity() {
+  if (!poems.length) return;
+  if (map.getZoom() <= cityCoords['all'].zoom + 1) {
+    setActiveCity('all');
+    return;
+  }
+
+  const bounds = map.getBounds();
+  const centre = map.getCenter();
+  const visible = {};  // city -> { count, nearest distance to centre }
+
+  poems.forEach(poem => {
+    const points = (poem.route && poem.route.length > 1) ? poem.route : [poem];
+    points.forEach(point => {
+      if (!bounds.contains([point.lat, point.lng])) return;
+      const v = visible[poem.city] || (visible[poem.city] = { count: 0, nearest: Infinity });
+      v.count++;
+      v.nearest = Math.min(v.nearest, centre.distanceTo([point.lat, point.lng]));
+    });
+  });
+
+  const best = Object.entries(visible)
+    .sort(([, a], [, b]) => b.count - a.count || a.nearest - b.nearest)[0];
+  setActiveCity(best ? best[0] : null);
+}
+
+map.on('moveend', updateActiveCity);
 
 // ============================================
 // 5. DARK MODE TOGGLE

@@ -113,8 +113,9 @@ body {
   color: #ff2d95;
 }
 
+/* The city the map is currently showing (set by updateActiveCity in app.js) */
 .city-list a.active {
-  color: #000;
+  color: #ff2d95;
 }
 
 /* ============================================
@@ -428,7 +429,7 @@ body.dark-mode .city-list a:hover {
 }
 
 body.dark-mode .city-list a.active {
-  color: #e0e0e0;
+  color: #ff2d95;
 }
 
 /* Dark mode mobile - must come after general dark mode rules */
